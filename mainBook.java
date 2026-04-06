@@ -22,10 +22,10 @@ class BookInfo extends issue{
 		System.out.print("Is the book available: ");
 		can_i_issue=sc.nextLine();
 		if(can_i_issue.equalsIgnoreCase("no")){
-			System.out.println("You cannot borrow this book.");
+			System.out.println("Not Available");
 		}
 		else if(can_i_issue.equalsIgnoreCase("yes")){
-			System.out.println("Yes you can borrow it.");
+			System.out.println("Available");
 		}
 		else{
 			System.out.println("Invalid");
@@ -91,8 +91,10 @@ public class mainBook{
 			c.setCustomerId();
 			c.setCustomerName();
 			c.ShowCustomer();
+			c.issueBook();
 		}
 		else if(z.equalsIgnoreCase("Staff")){
+			b.setBookId();
 			b.setBookName();
 			b.ShowBook();
 			b.setisAvailable();
