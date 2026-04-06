@@ -1,9 +1,9 @@
 import java.util.*;
-
+//issue book funtion
 abstract class issue {
 	abstract void issueBook();
 }
-
+//book info function
 class BookInfo extends issue{
 	private int bookId;
 	String bookName;
@@ -31,6 +31,7 @@ class BookInfo extends issue{
 			System.out.println("Invalid");
 		}
 	}
+	//abstract method overrided here using polymorphism
 	@Override
 	void issueBook(){
 		if(can_i_issue.equalsIgnoreCase("yes")){
@@ -53,13 +54,13 @@ class BookInfo extends issue{
 			System.out.println("Invalid input!");
 		}
 
-
+	//book information display
 	}
 	public void ShowBook(){
 		System.out.println(bookId+"-"+bookName+"-"+can_i_issue);
 	}
 }
- 
+//customer info function
 class CustomerInfo extends BookInfo{
 	int Customer_id;
 	String Customer_name;
@@ -77,11 +78,7 @@ class CustomerInfo extends BookInfo{
 	}
 }
 
-// interface CInfo{
-// 	void ShowCInfo();
-// }
-
-
+//main function to create objects and to call all the methods
 public class mainBook{
 	public static void main(String[] args){
 		BookInfo b = new BookInfo();
@@ -89,6 +86,7 @@ public class mainBook{
 		Scanner sc = new Scanner(System.in);
 		System.out.println("You are a customer or staff:");
 		String z = sc.nextLine();
+		//menu driven 
 		if(z.equalsIgnoreCase("Customer")){
 			c.setCustomerId();
 			c.setCustomerName();
