@@ -86,14 +86,21 @@ public class mainBook{
 	public static void main(String[] args){
 		BookInfo b = new BookInfo();
 		CustomerInfo c = new CustomerInfo();
-		c.setCustomerId();
-		c.setCustomerName();
-		c.ShowCustomer();
-		b.setBookName();
-		b.ShowBook();
-		b.setisAvailable();
-
-		
-
+		Scanner sc = new Scanner(System.in);
+		System.out.println("You are a customer or staff:");
+		String z = sc.nextLine();
+		if(z.equalsIgnoreCase("Customer")){
+			c.setCustomerId();
+			c.setCustomerName();
+			c.ShowCustomer();
+		}
+		else if(z.equalsIgnoreCase("Staff")){
+			b.setBookName();
+			b.ShowBook();
+			b.setisAvailable();
+		}
+		else{
+			System.out.println("Invalid input!!");
+		}
 	}
 }
