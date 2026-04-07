@@ -31,6 +31,28 @@ class BookInfo extends issue{
 			System.out.println("Invalid");
 		}
 	}
+	//book information display
+	
+	public void ShowBook(){
+		System.out.println(bookId+"-"+bookName+"-"+can_i_issue);
+	}
+}
+//customer info function
+class CustomerInfo extends BookInfo{
+	int Customer_id;
+	String Customer_name;
+	public void setCustomerId(){
+		System.out.print("Enter the id of the customer: ");
+		Customer_id= sc.nextInt();
+	}
+	public void setCustomerName(){
+		sc.nextLine();
+		System.out.print("Enter the name of the customer: ");
+		Customer_name=sc.nextLine();
+	}
+	public void ShowCustomer(){
+		System.out.println(Customer_id+"-"+Customer_name);
+	}
 	//abstract method overrided here using polymorphism
 	@Override
 	void issueBook(){
@@ -54,28 +76,6 @@ class BookInfo extends issue{
 			System.out.println("Invalid input!");
 		}
 
-	//book information display
-	}
-	public void ShowBook(){
-		System.out.println(bookId+"-"+bookName+"-"+can_i_issue);
-	}
-}
-//customer info function
-class CustomerInfo extends BookInfo{
-	int Customer_id;
-	String Customer_name;
-	public void setCustomerId(){
-		System.out.print("Enter the id of the customer: ");
-		Customer_id= sc.nextInt();
-	}
-	public void setCustomerName(){
-		sc.nextLine();
-		System.out.print("Enter the name of the customer: ");
-		Customer_name=sc.nextLine();
-	}
-	public void ShowCustomer(){
-		System.out.println(Customer_id+"-"+Customer_name);
-	}
 }
 
 //main function to create objects and to call all the methods
