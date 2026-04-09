@@ -3,8 +3,17 @@ import java.util.*;
 abstract class issue {
 	abstract void issueBook();
 }
+class caniissue{
+	String can_i_issue(){
+		String can_i_issue;
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter if book is available or not:");
+		can_i_issue=sc.nextLine();
+		return can_i_issue();
+	}
+}
 //book info function
-class BookInfo extends issue{
+abstract class BookInfo extends issue{   // <-- made abstract
 	private int bookId;
 	String bookName;
 	String can_i_issue;
@@ -19,16 +28,21 @@ class BookInfo extends issue{
 		bookName = sc.nextLine();
 	}
 	public void setisAvailable(){
-		System.out.print("Is the book available: ");
-		can_i_issue=sc.nextLine();
-		if(can_i_issue.equalsIgnoreCase("no")){
-			System.out.println("Not Available");
-		}
-		else if(can_i_issue.equalsIgnoreCase("yes")){
-			System.out.println("Available");
-		}
-		else{
-			System.out.println("Invalid");
+		caniissue a = new caniissue();
+		while(true){
+			can_i_issue = a.can_i_issue(); 
+			if(can_i_issue.equalsIgnoreCase("no")){
+				System.out.println("Not Available");
+				break;
+			}
+			else if(can_i_issue.equalsIgnoreCase("yes")){
+				System.out.println("Available");
+				break;
+			}
+			else{
+				System.out.println("Invalid");
+				continue;
+			}
 		}
 	}
 	//book information display
@@ -41,6 +55,7 @@ class BookInfo extends issue{
 class CustomerInfo extends BookInfo{
 	int Customer_id;
 	String Customer_name;
+	String can_i_issue;
 	public void setCustomerId(){
 		System.out.print("Enter the id of the customer: ");
 		Customer_id= sc.nextInt();
@@ -56,32 +71,33 @@ class CustomerInfo extends BookInfo{
 	//abstract method overrided here using polymorphism
 	@Override
 	void issueBook(){
-		if(can_i_issue.equalsIgnoreCase("yes")){
-			System.out.println("Do you want to borrow it: ");
-			String y = sc.nextLine();
-			if(y.equals("yes")){
-				System.out.println("Book issued succesfully");
-			}
-			else if(y.equalsIgnoreCase("no")){
-				System.out.println("Okay, thankyou for the interogation.");
-			}
-			else{
-				System.out.println("invalid input!");
-			}
-		}
-		else if(can_i_issue.equalsIgnoreCase("no")){
-			System.out.println("this book is not available");
-		}
-		else{
-			System.out.println("Invalid input!");
-		}
+    	if(can_i_issue.equalsIgnoreCase("yes")){
+        	System.out.println("Do you want to borrow it: ");
+        	String y = sc.nextLine();
+        	if(y.equals("yes")){
+            	System.out.println("Book issued successfully");
+        	}
+        	else if(y.equalsIgnoreCase("no")){
+            	System.out.println("Okay, thankyou for the interaction.");
+        	}
+        	else{
+            	System.out.println("invalid input!");
+        	}
+    	}
+    	else if(can_i_issue.equalsIgnoreCase("no")){
+        	System.out.println("this book is not available");
+    	}
+    	else{
+        	System.out.println("Invalid input!");
+    	}
+} 
+}  
 
-}
 
 //main function to create objects and to call all the methods
 public class mainBook{
 	public static void main(String[] args){
-		BookInfo b = new BookInfo();
+		BookInfo b = new CustomerInfo();   // <-- changed object creation
 		CustomerInfo c = new CustomerInfo();
 		Scanner sc = new Scanner(System.in);
 		System.out.println("You are a customer or staff:");
@@ -96,8 +112,8 @@ public class mainBook{
 		else if(z.equalsIgnoreCase("Staff")){
 			b.setBookId();
 			b.setBookName();
-			b.ShowBook();
 			b.setisAvailable();
+			b.ShowBook();
 		}
 		else{
 			System.out.println("Invalid input!!");
