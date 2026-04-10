@@ -119,8 +119,6 @@ public class mainBook{
 			System.out.println("Invalid input!!");
 		}
 		System.out.println("Updated now will learn and apply more things on this");
-		System.out.println("nothing coming in my mind now");
-		System.out.println("nothing coming in my mind now");
-		System.out.println("nothing coming in my mind now");
+
 	}
 }
