@@ -100,6 +100,7 @@ public class mainBook{
 		BookInfo b = new CustomerInfo();   // <-- changed object creation
 		CustomerInfo c = new CustomerInfo();
 		Scanner sc = new Scanner(System.in);
+		System.out.println("Heyyy!!! welcome to the Library..");
 		System.out.println("You are a customer or staff:");
 		String z = sc.nextLine();
 		//menu-driven
@@ -118,7 +119,6 @@ public class mainBook{
 		else{
 			System.out.println("Invalid input!!");
 		}
-		System.out.println("Updated now will learn and apply more things on this");
 		System.out.println("Updated now will learn and apply more things on this");
 	}
 }
