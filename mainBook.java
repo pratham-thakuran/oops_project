@@ -102,7 +102,7 @@ public class mainBook{
 		Scanner sc = new Scanner(System.in);
 		System.out.println("You are a customer or staff:");
 		String z = sc.nextLine();
-		//menu driven 
+		//menu-driven
 		if(z.equalsIgnoreCase("Customer")){
 			c.setCustomerId();
 			c.setCustomerName();

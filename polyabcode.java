@@ -1,4 +1,4 @@
-abstract class Animal{
+abstract class Animalss{
     abstract void sound();
 }
 class Cat extends Animal{
@@ -6,7 +6,7 @@ class Cat extends Animal{
         System.out.println("Cat meows");
     }
 }
-class Dog extends Animal{
+class Dogss extends Animal{
     void sound(){
         System.out.println("Dog barks");
     }
