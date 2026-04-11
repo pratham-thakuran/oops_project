@@ -23,7 +23,7 @@ abstract class BookInfo extends issue{   // <-- made abstract
 		System.out.print("Enter the staff id:");
 		int StaffId = sc.nextInt();
 	}
-	
+
 	public void setBookId(){
 		System.out.print("Enter book id: ");
 		bookId = sc.nextInt();
@@ -54,7 +54,7 @@ abstract class BookInfo extends issue{   // <-- made abstract
 	//book information display
 	
 	public void ShowBook(){
-		System.out.println(bookId+"-"+bookName+"-"+can_i_issue);
+		System.out.println(bookId+"-"+bookName+"-"+can_i_issue+"-"+bookId);
 	}
 }
 //customer info function
