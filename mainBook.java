@@ -1,3 +1,4 @@
+import java.sql.*;
 import java.util.*;
 //issue book funtion
 abstract class issue {
@@ -19,10 +20,43 @@ abstract class BookInfo extends issue{   // <-- made abstract
 	String can_i_issue;
 	Scanner sc = new Scanner(System.in);
 
-	public void checkid(){
-		System.out.print("Enter the staff id:");
-		int StaffId = sc.nextInt();
-	}
+	public boolean checkid() {
+    System.out.print("Enter the staff id: ");
+    int staffId = sc.nextInt();
+
+    try {
+        // 1. Load Driver
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        // 2. Create Connection
+        Connection con = DriverManager.getConnection(
+            "jdbc:mysql://localhost:3306/projectdb", "root", "0864297531@Lichi"
+        );
+
+        // 3. Prepare Query
+        String query = "SELECT * FROM Staff WHERE id = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1, staffId);
+
+        // 4. Execute Query
+        ResultSet rs = ps.executeQuery();
+
+        // 5. Check Result
+        if (rs.next()) {
+            System.out.println("✅ Staff verified!");
+            con.close();
+            return true;
+        } else {
+            System.out.println("❌ Invalid staff ID!");
+            con.close();
+            return false;
+        }
+
+    } catch (Exception e) {
+        System.out.println("Error: " + e);
+        return false;
+    }
+}
 
 	public void setBookId(){
 		System.out.print("Enter book id: ");
@@ -117,16 +151,19 @@ public class mainBook{
 			c.issueBook();
 		}
 		else if(z.equalsIgnoreCase("Staff")){
-			b.setBookId();
-			b.setBookName();
-			b.setisAvailable();
-			b.ShowBook();
+			if(b.checkid()){
+				b.setBookId();
+				b.setBookName();
+				b.setisAvailable();
+				b.ShowBook();
+			}
+			else{
+				System.out.println("access denied!!");
+			}	
 		}
 		else{
 			System.out.println("Invalid input!!");
 		}
-		System.out.println("Updated now will learn and apply more things on this");
-		System.out.println("Updated now will learn and apply more things on this");
 		System.out.println("Updated now will learn and apply more things on this");
 	}
 }
