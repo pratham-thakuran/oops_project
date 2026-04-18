@@ -10,7 +10,7 @@ class caniissue{
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Enter if book is available or not:");
 		can_i_issue=sc.nextLine();
-		return can_i_issue();
+		return can_i_issue;
 	}
 }
 //book info function
@@ -20,34 +20,32 @@ abstract class BookInfo extends issue{   // <-- made abstract
 	String can_i_issue;
 	Scanner sc = new Scanner(System.in);
 
-	public boolean checkid() {
-    System.out.print("Enter the staff id: ");
+	public boolean verifyStaff() {
+    Scanner sc = new Scanner(System.in);
+    System.out.print("Enter Staff ID: ");
     int staffId = sc.nextInt();
 
+    String url = "jdbc:mysql://localhost:3306/projectdb";
+    String user = "root";
+    String password = "your_password";
+
     try {
-        // 1. Load Driver
-        Class.forName("com.mysql.cj.jdbc.Driver");
+		Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, user, password);
 
-        // 2. Create Connection
-        Connection con = DriverManager.getConnection(
-            "jdbc:mysql://localhost:3306/projectdb", "root", "0864297531@Lichi"
-        );
-
-        // 3. Prepare Query
-        String query = "SELECT * FROM Staff WHERE id = ?";
+        String query = "SELECT Name FROM staffinfo WHERE id = ?";
         PreparedStatement ps = con.prepareStatement(query);
         ps.setInt(1, staffId);
 
-        // 4. Execute Query
         ResultSet rs = ps.executeQuery();
 
-        // 5. Check Result
         if (rs.next()) {
-            System.out.println("✅ Staff verified!");
+            String name = rs.getString("Name");
+            System.out.println("Welcome " + name);
             con.close();
             return true;
         } else {
-            System.out.println("❌ Invalid staff ID!");
+            System.out.println("Staff not found");
             con.close();
             return false;
         }
@@ -57,6 +55,7 @@ abstract class BookInfo extends issue{   // <-- made abstract
         return false;
     }
 }
+
 
 	public void setBookId(){
 		System.out.print("Enter book id: ");
@@ -151,7 +150,7 @@ public class mainBook{
 			c.issueBook();
 		}
 		else if(z.equalsIgnoreCase("Staff")){
-			if(b.checkid()){
+			if(b.verifyStaff()){
 				b.setBookId();
 				b.setBookName();
 				b.setisAvailable();
