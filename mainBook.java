@@ -25,9 +25,9 @@ abstract class BookInfo extends issue{   // <-- made abstract
     System.out.print("Enter Staff ID: ");
     int staffId = sc.nextInt();
 
-    String url = "jdbc:mysql://localhost:3306/projectdb";
+    String url = "jdbc:mysql://localhost:3306/Staff";
     String user = "root";
-    String password = "your_password";
+    String password = "0864297531@Lichi";
 
     try {
 		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -40,7 +40,7 @@ abstract class BookInfo extends issue{   // <-- made abstract
         ResultSet rs = ps.executeQuery();
 
         if (rs.next()) {
-            String name = rs.getString("Name");
+            String name = rs.getString("name");
             System.out.println("Welcome " + name);
             con.close();
             return true;
@@ -54,6 +54,7 @@ abstract class BookInfo extends issue{   // <-- made abstract
         System.out.println("Error: " + e);
         return false;
     }
+	
 }
 
 
@@ -94,7 +95,6 @@ abstract class BookInfo extends issue{   // <-- made abstract
 class CustomerInfo extends BookInfo{
 	int Customer_id;
 	String Customer_name;
-	String can_i_issue;
 	public void setCustomerId(){
 		System.out.print("Enter the id of the customer: ");
 		Customer_id= sc.nextInt();
