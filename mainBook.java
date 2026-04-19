@@ -20,6 +20,8 @@ abstract class BookInfo extends issue{   // <-- made abstract
 	String can_i_issue;
 	Scanner sc = new Scanner(System.in);
 
+	
+
 	public boolean verifyStaff() {
     Scanner sc = new Scanner(System.in);
     System.out.print("Enter Staff ID: ");
@@ -56,7 +58,34 @@ abstract class BookInfo extends issue{   // <-- made abstract
     }
 	
 }
+	public void saveBookToDB() {
+    String url = "jdbc:mysql://localhost:3306/Staff";
+    String user = "root";
+    String password = "0864297531@Lichi";
 
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, user, password);
+
+        String query = "INSERT INTO bookinfo (bookId, bookName, available) VALUES (?, ?, ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+
+        ps.setInt(1, bookId);
+        ps.setString(2, bookName);
+        ps.setString(3, can_i_issue);
+
+        int rows = ps.executeUpdate();
+
+        if (rows > 0) {
+            System.out.println("Book inserted into database");
+        }
+
+        con.close();
+
+    } catch (Exception e) {
+        System.out.println("DB Error: " + e);
+    }
+}
 
 	public void setBookId(){
 		System.out.print("Enter book id: ");
@@ -88,7 +117,7 @@ abstract class BookInfo extends issue{   // <-- made abstract
 	//book information display
 	
 	public void ShowBook(){
-		System.out.println(bookId+"-"+bookName+"-"+can_i_issue+"-"+bookId);
+		System.out.println(bookId+"-"+bookName+"-"+can_i_issue);
 	}
 }
 //customer info function
@@ -140,7 +169,7 @@ public class mainBook{
 		CustomerInfo c = new CustomerInfo();
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Heyyy!!! welcome to the Library..");
-		System.out.println("You are a customer or staff:");
+		System.out.print("You are a customer or staff:");
 		String z = sc.nextLine();
 		//menu-driven
 		if(z.equalsIgnoreCase("Customer")){
@@ -154,6 +183,7 @@ public class mainBook{
 				b.setBookId();
 				b.setBookName();
 				b.setisAvailable();
+				b.saveBookToDB();
 				b.ShowBook();
 			}
 			else{
