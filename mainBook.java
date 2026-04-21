@@ -128,6 +128,47 @@ class CustomerInfo extends BookInfo{
 		System.out.print("Enter the id of the customer: ");
 		Customer_id= sc.nextInt();
 	}
+	public boolean checkBook(int id) {
+    String url = "jdbc:mysql://localhost:3306/Staff";
+    String user = "root";
+    String password = "0864297531@Lichi";
+
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, user, password);
+
+        String query = "SELECT bookName, available FROM bookinfo WHERE bookId = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setInt(1, id);
+
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            String name = rs.getString("bookName");
+            String availability = rs.getString("available");
+
+            System.out.println("Book Found: " + name);
+
+            if (availability.equalsIgnoreCase("yes")) {
+                System.out.println("Book is available");
+                con.close();
+                return true;
+            } else {
+                System.out.println("Book is NOT available");
+                con.close();
+                return false;
+            }
+        } else {
+            System.out.println("Book not found in database");
+            con.close();
+            return false;
+        }
+
+    } catch (Exception e) {
+        System.out.println("DB Error: " + e);
+        return false;
+    }
+}
 	public void setCustomerName(){
 		sc.nextLine();
 		System.out.print("Enter the name of the customer: ");
@@ -173,10 +214,18 @@ public class mainBook{
 		String z = sc.nextLine();
 		//menu-driven
 		if(z.equalsIgnoreCase("Customer")){
-			c.setCustomerId();
+    		c.setCustomerId();
 			c.setCustomerName();
 			c.ShowCustomer();
-			c.issueBook();
+
+			System.out.print("Enter Book ID you want: ");
+			int id = sc.nextInt();
+
+			if(c.checkBook(id)){
+				sc.nextLine(); // clear buffer
+			} else {
+				System.out.println("Cannot issue book");
+			}
 		}
 		else if(z.equalsIgnoreCase("Staff")){
 			if(b.verifyStaff()){
@@ -193,7 +242,6 @@ public class mainBook{
 		else{
 			System.out.println("Invalid input!!");
 		}
-		System.out.println("Updated now will learn and apply more things on this");
 		System.out.println("Updated now will learn and apply more things on this");
 
 	}
