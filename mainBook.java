@@ -214,18 +214,24 @@ public class mainBook{
 		String z = sc.nextLine();
 		//menu-driven
 		if(z.equalsIgnoreCase("Customer")){
-    		c.setCustomerId();
-			c.setCustomerName();
-			c.ShowCustomer();
+			System.out.println("You want to login or you are new here:\n1)Login\n2)SignUp");
+			int k = sc.nextInt();
+			switch(k){
+				case 1:
+					System.out.print("Enter Book ID you want: ");
+					int id = sc.nextInt();
 
-			System.out.print("Enter Book ID you want: ");
-			int id = sc.nextInt();
-
-			if(c.checkBook(id)){
-				sc.nextLine(); // clear buffer
-			} else {
-				System.out.println("Cannot issue book");
+					if(c.checkBook(id)){
+						sc.nextLine(); // clear buffer
+					} else {
+						System.out.println("Cannot issue book");
+					}
+				case 2:
+					c.setCustomerId();
+					c.setCustomerName();
+					c.ShowCustomer();
 			}
+
 		}
 		else if(z.equalsIgnoreCase("Staff")){
 			if(b.verifyStaff()){
