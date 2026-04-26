@@ -201,6 +201,34 @@ class CustomerInfo extends BookInfo{
     	}
 } 
 }  
+	public void saveBookToDB2() {
+    String url = "jdbc:mysql://localhost:3306/Staff";
+    String user = "root";
+    String password = "0864297531@Lichi";
+
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(url, user, password);
+
+        String query = "INSERT INTO customerinfo (id, name, password) VALUES (?, ?, ?)";
+        PreparedStatement ps = con.prepareStatement(query);
+
+        ps.setInt(1, Customer_id);
+        ps.setString(2, Customer_name);
+        ps.setString(3, password);
+
+        int rows = ps.executeUpdate();
+
+        if (rows > 0) {
+            System.out.println("Signup Successful");
+        }
+
+        con.close();
+
+    } catch (Exception e) {
+        System.out.println("DB Error: " + e);
+    }
+}
 
 
 //main function to create objects and to call all the methods
